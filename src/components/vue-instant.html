@@ -1,0 +1,30 @@
+<div class="sbx-searchbox">
+    <input type="text" v-if="showPlaceholder" class="sbx-searchbox__input-placeholder" 
+        :value="getPlaceholder" 
+        name="search" 
+        autocomplete="off" 
+        required="required" 
+        tabindex="-1"
+    >
+    <span :class="{'show': isLoading, 'sbx-searchbox__spinner': true}"></span>
+    <input type="text" class="sbx-searchbox__input" 
+        v-model="textVal"
+        placeholder="" 
+        autocomplete="off" 
+        required="required" 
+        :autofocus="autofocus"
+        :disabled="disabled" 
+        :name="name" 
+        @click="inputClick" 
+        @keydown.enter.stop='enterAction' 
+        @keyup='changeText'
+    >
+    <ul v-on-clickaway="away" v-if="showSuggestions" class="sbx-searchbox__suggestions" ref="suggestions">
+        <li :class="{'sbx-searchbox__suggestion--highlighted': isHighlighted(index)}" 
+            @click="selectedAction(index)" 
+            v-for="(item, index) in similiarData"
+        >
+            {{item[suggestionAttribute]}}
+        </li>
+    </ul>
+</div>
